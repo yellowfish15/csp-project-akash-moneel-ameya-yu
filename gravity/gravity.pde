@@ -1,17 +1,17 @@
 import peasy.*;
+import queasycam.*;
 
-PeasyCam cam;
+//PeasyCam cam;
+QueasyCam cam;
 
 GravObject obj1, obj2;
 float gravConstant = 40;
 void setup(){
   size(720,720,P3D);
   
-  cam = new PeasyCam(this, 100);
-  cam.setMinimumDistance(50);
-  cam.setMaximumDistance(5000);
-  cam.lookAt(0,0,0);
-  cam.setDistance(400);
+  cam = new QueasyCam(this);
+  cam.speed = 5;
+  cam.sensitivity = 0.5;
   
   background(0);
   frameRate(60);
