@@ -3,8 +3,8 @@ class GravObject{
   public float mass,  size;
   public color col;
   
-  public GravObject(float x, float y, float mass, PVector vel){
-    pos = new PVector(x,y);
+  public GravObject(PVector pos, float mass, PVector vel){
+    this.pos = pos;
     accel = new PVector();
     this.mass = mass;
     this.size = mass*2;
@@ -14,7 +14,7 @@ class GravObject{
   }
   
   public void applyForce(PVector force){
-    accel.add(force.div(mass));
+    accel.add(force);
   }
   
   public void update(){
@@ -24,8 +24,13 @@ class GravObject{
   }
   
   public void draw(){
-    noStroke();
+    pushMatrix();
+    
+    translate(pos.x, pos.y, pos.z);
+    stroke(255);
     fill(col);
-    circle(pos.x, pos.y, size);
+    sphere(size);
+    
+    popMatrix();
   }
 }
