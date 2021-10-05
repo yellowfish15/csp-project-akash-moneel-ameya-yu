@@ -1,8 +1,18 @@
 ArrayList<GravObject> objs;
 float gravConstant = 40;
+PVector mPos;
+FixedObject mDisp;
+float defMass=1, defSize=16, velMult=50;
+PImage starBg;
+
+boolean screenWrap = true;
+float worldMargin = 100;
+
 void setup() {
   size(1000, 1000);
   frameRate(60);
+
+  starBg = loadImage("starbg3.jpg");
 
   objs = new ArrayList();
 
@@ -15,15 +25,28 @@ void setup() {
     objs.add(new GravObject(pos, mass, size, vel));
   }
 
-  objs.add(new FixedObject(new PVector(width/2, height/2), 100, 40));
+  objs.add(new FixedObject(new PVector(width/2, height/2), 150, 40));
 
-  objs.add(new GravObject(new PVector(width/2, height/2-200), 10, 20, new PVector(4, 0)));
+  objs.add(new GravObject(new PVector(width/2, height/2-200), 10, 20, new PVector(5, 0)));
+}
+
+void mousePressed() {
+  mPos = new PVector(mouseX, mouseY);
+  mDisp = new FixedObject(mPos, 0, defSize);
+  objs.add(mDisp);
+}
+
+void mouseReleased() {
+  PVector vel = PVector.sub(mPos, new PVector(mouseX, mouseY));
+  vel.div(velMult);
+  objs.remove(mDisp);
+  objs.add(new GravObject(mPos, defMass, defSize, vel));
 }
 
 void draw() {
   update();
 
-  background(0);
+  background(starBg);
   for (GravObject obj : objs) {
     obj.draw();
   }

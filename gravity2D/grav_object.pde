@@ -23,15 +23,25 @@ class GravObject {
     pos.add(vel);
     accel = new PVector();
 
-    if (pos.x>width)
-      pos.x = 0;
-    else if (pos.x<0)
-      pos.x = width;
-
-    if (pos.y>height)
-      pos.y = 0;
-    else if (pos.y<0)
-      pos.y = height;
+    if (screenWrap) {
+      if (pos.x>width)
+        pos.x = 0;
+      else if (pos.x<0)
+        pos.x = width;
+      if (pos.y>height)
+        pos.y = 0;
+      else if (pos.y<0)
+        pos.y = height;
+    } else {
+      if(pos.x<-worldMargin)
+        objs.remove(this);
+      else if(pos.x>worldMargin+width)
+        objs.remove(this);
+      else if(pos.y<-worldMargin)
+        objs.remove(this);
+      else if(pos.y>worldMargin+height)
+        objs.remove(this);
+    }
   }
 
   public void draw() {
