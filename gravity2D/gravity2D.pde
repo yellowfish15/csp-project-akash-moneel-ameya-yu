@@ -8,6 +8,8 @@ PImage starBg;
 boolean screenWrap = false;
 float worldMargin = 100;
 
+boolean mPressed = false;
+
 void setup() {
   size(1000, 1000);
   frameRate(60);
@@ -34,6 +36,7 @@ void mousePressed() {
   mPos = new PVector(mouseX, mouseY);
   mDisp = new FixedObject(mPos, 0, defSize);
   objs.add(mDisp);
+  mPressed = true;
 }
 
 void mouseReleased() {
@@ -41,6 +44,7 @@ void mouseReleased() {
   vel.div(velMult);
   objs.remove(mDisp);
   objs.add(new GravObject(mPos, defMass, defSize, vel));
+  mPressed = false;
 }
 
 void draw() {
@@ -49,6 +53,14 @@ void draw() {
   background(starBg);
   for (GravObject obj : objs) {
     obj.draw();
+  }
+  
+  // draw the mouse velocity
+  if(mPressed) {
+     PVector vel = PVector.sub(mPos, new PVector(mouseX, mouseY));
+     vel.div(velMult);
+     textSize(25);
+     text((floor(vel.mag()*100)+0.0)/100+"", mouseX, mouseY); 
   }
 }
 
