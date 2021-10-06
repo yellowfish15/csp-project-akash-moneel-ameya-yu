@@ -1,0 +1,20 @@
+Program Documentation:
+The goal of this program is to make a 2D simulation of gravitational objects in a vacuum, simulating complex orbital mechanics and physics.
+
+We have used 3 classes in order to do this, a gravity2D class that acts as the GUI, graphical user interface, fixed_object, which ensures that the central mass has its own properties
+such as being fixed in place, and a little bit larger than the other objects to differentiate this from the rest.
+
+Gravity2D.pde documentation- 
+The user interacts with the program through mousePressed() and mouseReleased() methods that are located in the GUI. The user drags a planet and through using the Vector of the "pull", the program calculates
+the initial velocity of the planet that was just launched, and puts it in orbit of the larger, central planet.
+
+The setup() method runs one time at the beginning of the program, similar to the block in Scratch that states "When Green Flag is clicked". It instantiates some of the important instance
+variables that are used later on in the class.
+
+The draw() and concurrent update() methods in the Gravity2D.pde class runs 60 times every second, and changes the user's screen in accordance with the positions, velocities, and orbits of the planets. We have set
+this to 60 FPS in the code, because this is an ideal frame rate for a quality visual experience while maximizing the efficiency of the program. We have not noted any stuttering or 
+frame rate drops in our extensive testing of this program.
+
+fixed_object.pde documentation-
+This is an extension of grav_object class and acts to differentiate the central "star" from the rest of the planets. In our simulation, we did 
+
