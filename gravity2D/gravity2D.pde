@@ -5,7 +5,7 @@ FixedObject mDisp;
 float defMass=1, defSize=16, velMult=50;
 PImage starBg;
 
-boolean screenWrap = true;
+boolean screenWrap = false;
 float worldMargin = 100;
 
 void setup() {
@@ -68,7 +68,8 @@ void update() {
     }
   }
 
-  for (GravObject obj : objs) {
+  for (int i = objs.size()-1; i>=0; i--) {
+    GravObject obj = objs.get(i);
     obj.update();
   }
 }
