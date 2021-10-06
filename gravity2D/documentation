@@ -15,6 +15,18 @@ The draw() and concurrent update() methods in the Gravity2D.pde class runs 60 ti
 this to 60 FPS in the code, because this is an ideal frame rate for a quality visual experience while maximizing the efficiency of the program. We have not noted any stuttering or 
 frame rate drops in our extensive testing of this program.
 
-fixed_object.pde documentation-
-This is an extension of grav_object class and acts to differentiate the central "star" from the rest of the planets. In our simulation, we did 
 
+fixed_object.pde documentation-
+This is an extension of grav_object class and acts to differentiate the central "star" from the rest of the planets. In our simulation, we wanted a central object that has a stronger 
+pull than the rest
+
+
+grav_object.pde documentation-
+The constructor of the class takes in 4 variables that are all physical quantities necessary to calculate important orbital aspects of the program. Position, mass, size, and velocity 
+are all necessary. The constructor also assigns a random color to each planet to create a better user experience that is varied using HSB. The applyForce() updates the acceleration 
+with an input of the quantity of force.
+
+If the ScreenWrap quantity is true (which changes how the mouse operates when the cursor has been exited from the window GUI screen, then it is necessary that extreme cases of
+position being out of bounds need to be accounted for. This means that the object, which is travelling in space, if it leaves the program, it comes back.
+
+The draw() method in this class instantiates the graphics for the object, meaning that there is no outline, and it is filled with the randomly generated color.
