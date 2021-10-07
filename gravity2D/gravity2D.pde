@@ -57,12 +57,31 @@ void draw() {
     obj.draw();
   }
   
-  // draw the mouse velocity
+  // draw the mouse velocity and trajectory of grav_object
   if(mPressed) {
+     // display mouse velocity
      PVector vel = PVector.sub(mPos, new PVector(mouseX, mouseY));
      vel.div(velMult);
      textSize(25);
-     text((floor(vel.mag()*100)+0.0)/100+"", mouseX, mouseY); 
+     text((floor(vel.mag()*100)+0.0)/100+"", mouseX, mouseY);
+     
+     // display trajectory of grav_object (100 frames into the future)
+     
+     GravObject obj1 = new GravObject(new PVector(mPos.x, mPos.y), defMass, 3, vel, mDisp.col);
+     for(int i = 0; i < 10000; i++) { 
+        for(GravObject obj2: objs) {
+          if(obj2.equals(mDisp))
+            continue;
+          PVector base = PVector.sub(obj1.pos, obj2.pos);
+          float dist = base.magSq();
+          dist = max(dist, 400); // prevents infinite acceleration
+          dist = gravConstant/dist;
+          base = base.normalize().mult(dist);
+          obj1.applyForce(PVector.mult(base, -obj2.mass));
+        }
+        obj1.update();
+        obj1.draw();
+     }
   }
 }
 
