@@ -1,42 +1,41 @@
-ArrayList<GravObject> objs;
-float gravConstant = 40;
-PVector mPos;
-FixedObject mDisp;
-float defMass=1, defSize=16, velMult=50;
+ArrayList<GravObject> objs; // Stores all planets including fixed planets
+float gravConstant = 0.5; // Strength of gravitational attraction
 PImage starBg;
 
-boolean screenWrap = false;
-float worldMargin = 100;
+boolean screenWrap = false; // Enables/disables object screen wrap
+float worldMargin = 100; // Bounds for when objects are destroyed off-screen
 
-boolean mPressed = false;
+PVector mPos; // Temporary position for creating planet
+FixedObject mDisp; // Planet display
+float defMass=1, defSize=16, velMult=50; // Default parameters
 
 void setup() {
-  size(1000, 1000);
+  size(1000, 1000); // Initializes window size, framerate, and colormode
   frameRate(60);
+  colorMode(HSB);
 
-  starBg = loadImage("starbg3.jpg");
+  starBg = loadImage("starbg3.jpg"); // Loads in background
 
   objs = new ArrayList();
 
-  float numRandObjs = 0;
-  for (int i=0; i<numRandObjs; i++) {
-    PVector pos = new PVector(random(width), random(height));
-    float mass = random(10)+30;
-    float size = mass/2;
-    PVector vel = PVector.random2D();
-    objs.add(new GravObject(pos, mass, size, vel));
-  }
+  //float numRandObjs = 0;
+  //for (int i=0; i<numRandObjs; i++) {
+  //  PVector pos = new PVector(random(width), random(height));
+  //  float mass = random(10)+30;
+  //  float size = mass/2;
+  //  PVector vel = PVector.random2D();
+  //  objs.add(new GravObject(pos, mass, size, vel));
+  //}
 
-  objs.add(new FixedObject(new PVector(width/2, height/2), 150, 40));
+  objs.add(new FixedObject(new PVector(width/2, height/2), 20000, 40));
 
-  objs.add(new GravObject(new PVector(width/2, height/2-200), 10, 20, new PVector(5, 0)));
+  //objs.add(new GravObject(new PVector(width/2, height/2-200), 10, 20, new PVector(5, 0)));
 }
 
 void mousePressed() {
   mPos = new PVector(mouseX, mouseY);
   mDisp = new FixedObject(mPos, 0, defSize);
   objs.add(mDisp);
-  mPressed = true;
 }
 
 void mouseReleased() {
@@ -46,7 +45,6 @@ void mouseReleased() {
   GravObject obj = new GravObject(mPos, defMass, defSize, vel);
   obj.col = mDisp.col;
   objs.add(obj);
-  mPressed = false;
 }
 
 void draw() {
@@ -56,32 +54,46 @@ void draw() {
   for (GravObject obj : objs) {
     obj.draw();
   }
-  
+
   // draw the mouse velocity and trajectory of grav_object
-  if(mPressed) {
-     // display mouse velocity
-     PVector vel = PVector.sub(mPos, new PVector(mouseX, mouseY));
-     vel.div(velMult);
-     textSize(25);
-     text((floor(vel.mag()*100)+0.0)/100+"", mouseX, mouseY);
-     
-     // display trajectory of grav_object (100 frames into the future)
-     
-     GravObject obj1 = new GravObject(new PVector(mPos.x, mPos.y), defMass, 3, vel, mDisp.col);
-     for(int i = 0; i < 10000; i++) { 
-        for(GravObject obj2: objs) {
-          if(obj2.equals(mDisp))
-            continue;
+  if (mousePressed) {
+    // display mouse velocity
+    PVector vel = PVector.sub(mPos, new PVector(mouseX, mouseY));
+    vel.div(velMult);
+    textSize(25);
+    text((floor(vel.mag()*100)+0.0)/100+"", mouseX, mouseY);
+
+    // display trajectory of grav_object (100 frames into the future)
+
+    GravObject trace = new GravObject(mPos.copy(), defMass, 3, vel, mDisp.col);
+    ArrayList<GravObject> predList = new ArrayList();
+    for (GravObject o : objs) {
+      predList.add(o.clone());
+    }
+    predList.add(trace);
+    for (int l = 0; l < 1000; l++) { 
+
+      for (int i=0; i<predList.size()-1; i++) {
+        GravObject obj1 = predList.get(i);
+        for (int k=i+1; k<predList.size(); k++) {
+          GravObject obj2 = predList.get(k);
           PVector base = PVector.sub(obj1.pos, obj2.pos);
           float dist = base.magSq();
           dist = max(dist, 400); // prevents infinite acceleration
           dist = gravConstant/dist;
           base = base.normalize().mult(dist);
+          obj2.applyForce(PVector.mult(base, obj1.mass));
           obj1.applyForce(PVector.mult(base, -obj2.mass));
         }
-        obj1.update();
-        obj1.draw();
-     }
+      }
+
+      for (int i = predList.size()-1; i>=0; i--) {
+        GravObject obj = predList.get(i);
+        obj.update();
+      }
+
+      trace.draw();
+    }
   }
 }
 
@@ -104,5 +116,22 @@ void update() {
   for (int i = objs.size()-1; i>=0; i--) {
     GravObject obj = objs.get(i);
     obj.update();
+  }
+}
+
+void keyPressed(){
+  if(key == 'p'){
+    writeToFile("save2.txt");
+  }
+  
+  if(key == 'o'){
+    for(int i=objs.size()-1; i>=0; i--){
+      if(!objs.get(i).isFixed())
+        objs.remove(i);
+    }
+  }
+  
+  if(key == 'i'){
+    objs = readFromFile("save2.txt");
   }
 }

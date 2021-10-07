@@ -5,13 +5,16 @@ class GravObject {
   public PShape shape;
 
   public GravObject(PVector pos, float mass, float size, PVector vel) {
+    this(pos,mass,size,vel,color(random(255), 255, 255));
+  }
+
+  public GravObject(PVector pos, float mass, float size, PVector vel, color col){
     this.pos = pos;
     accel = new PVector();
     this.mass = mass;
     this.size = size;
     this.vel = vel;
-    colorMode(HSB);
-    col = color(random(255), 255, 255);
+    this.col = col;
   }
 
   public void applyForce(PVector force) {
@@ -53,5 +56,17 @@ class GravObject {
     circle(0, 0, size);
 
     popMatrix();
+  }
+  
+  public GravObject clone(){
+    return new GravObject(pos.copy(),mass,size,vel.copy(),col);
+  }
+  
+  public String toString(){
+    return "Grav "+pos.x+","+pos.y+","+pos.z+","+mass+","+size+","+vel.x+","+vel.y+","+vel.z+","+hue(col);
+  }
+  
+  public boolean isFixed(){
+    return false;
   }
 }
