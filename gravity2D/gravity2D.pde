@@ -43,7 +43,9 @@ void mouseReleased() {
   PVector vel = PVector.sub(mPos, new PVector(mouseX, mouseY));
   vel.div(velMult);
   objs.remove(mDisp);
-  objs.add(new GravObject(mPos, defMass, defSize, vel));
+  GravObject obj = new GravObject(mPos, defMass, defSize, vel);
+  obj.col = mDisp.col;
+  objs.add(obj);
   mPressed = false;
 }
 

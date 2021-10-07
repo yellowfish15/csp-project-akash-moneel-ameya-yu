@@ -10,6 +10,7 @@ public PImage getRandomTexture(float w, float h, float r, float g, float b){
       float nX = sX+mult*x;
       float nY = sY+mult*y;
       float ns = noise(nX, nY);
+      //println(ns);
       img.pixels[loc] = color(ns*r, ns*g, ns*b);
     }
   }
