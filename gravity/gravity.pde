@@ -5,6 +5,13 @@ QueasyCam cam;
 
 PImage jupiter;
 PImage earth;
+PImage sun;
+PImage mercury; 
+PImage venus;
+PImage mars;
+PImage saturn;
+PImage uranus;
+PImage neptune;
 PImage stars;
 
 ArrayList<GravObject> objs;
@@ -20,14 +27,28 @@ void setup(){
   jupiter = loadImage("jupitermap.jpg");
   earth = loadImage("earthmap1k.jpg");
   stars = loadImage("starbg2.jpg");
-  
+  sun = loadImage("sunmap.jpg");
+  venus = loadImage("venusmap.jpg");
+  saturn = loadImage("saturnmap.jpg");
+  mercury = loadImage("mercury.jpg");
+  uranus = loadImage("uranusmap.jpg");
+  mars = loadImage("marsmap.jpg");
   background(stars);
   frameRate(60);
   
   objs = new ArrayList();
-  objs.add(new GravObject(new PVector(100,100,100),30,20,new PVector(2,1,-3), jupiter));
-  objs.add(new GravObject(new PVector(0,0,0),30,20,new PVector(0,0,0), earth));
-  objs.add(new GravObject(new PVector(-100,100,100),30,20,new PVector(2,1,-3), earth));
+  objs.add(new GravObject(new PVector(100,100,100), 10, new PVector(2, 1, -3), mercury));
+  objs.add(new GravObject(new PVector(100,100,100), 27, new PVector(2, 1, -3), venus));
+  objs.add(new GravObject(new PVector(100,100,100),30, new PVector(2, 1, -3), earth));
+  objs.add(new GravObject(new PVector(100,100,100), 20, new PVector(2, 1, -3), mars));
+  objs.add(new GravObject(new PVector(100,100,100), 330, new PVector(2, 1, -3), jupiter));
+  objs.add(new GravObject(new PVector(100,100,100), 270, new PVector(2, 1, -3), saturn));
+  objs.add(new GravObject(new PVector(100,100,100), 120, new PVector(2, 1, -3), uranus));
+  objs.add(new GravObject(new PVector(100,100,100), 115, new PVector(2, 1, -3),neptune));
+  objs.add(new GravObject(new PVector(0,0,0),1000, new PVector(2, 1, -3), sun));
+
+
+
 }
 
 void draw(){
