@@ -88,34 +88,29 @@ void update() {
 */
 
 
-final int MENUSCREEN = 0;
-final int GAMESCREEN = 1;
-int screenState;
+int currentPic = 0;
+PImage[] gif;
 // setup() and other global variables
 
 void setup() {
   size(1000, 1000);
-  screenState = 0;
   textAlign(CENTER);
-  textSize(50); 
-  text("2D GRAVITY VISUALIZER", 500, 250);
-  PImage gif = loadImage("galaxy.gif");
+  PFont font = createFont("Death Star.otf", 50);
+  textFont(font);
+  gif = new PImage[12];
+  int index = 0;
+  while(index < 12) {
+    gif[index] = loadImage("frame_0" + index + "_delay-0.11s.gif");
+    index++;
+  }
+   frameRate(5);
 }
 
 void draw() {
-  if (screenState == MENUSCREEN) {
-    drawMenu();
-  } else if (screenState == GAMESCREEN) {
-    drawGame();
-  } else {
-    println("Something went wrong!");
-  }
-}
-
-void drawGame() {
-  // Pew, pew, I'm a game!
-}
-
-void drawMenu() {
-  // Don't forget to save :D
+  image(gif[currentPic], 0, 0, 1000, 1000);
+  currentPic++;   
+  if(currentPic > 11) {
+    currentPic = 0;
+  } 
+  text("2D SOLAR SYSTEM VISUALIZER", 500, 200);
 }
