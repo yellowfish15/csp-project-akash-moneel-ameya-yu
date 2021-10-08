@@ -1,3 +1,5 @@
+import java.util.*;
+
 ArrayList<GravObject> objs; // Stores all planets including fixed planets
 float gravConstant = 0.5; // Strength of gravitational attraction
 PImage starBg;
@@ -8,6 +10,10 @@ float worldMargin = 100; // Bounds for when objects are destroyed off-screen
 PVector mPos; // Temporary position for creating planet
 FixedObject mDisp; // Planet display
 float defMass=1, defSize=16, velMult=50; // Default parameters
+
+float defFMass = 5000, defFSize = 25;
+
+String saveFile = "infinity";
 
 void setup() {
   size(1000, 1000); // Initializes window size, framerate, and colormode
@@ -28,23 +34,30 @@ void setup() {
   //}
 
   objs.add(new FixedObject(new PVector(width/2, height/2), 20000, 40));
-
   //objs.add(new GravObject(new PVector(width/2, height/2-200), 10, 20, new PVector(5, 0)));
 }
 
 void mousePressed() {
-  mPos = new PVector(mouseX, mouseY);
-  mDisp = new FixedObject(mPos, 0, defSize);
-  objs.add(mDisp);
+  if (mouseButton == LEFT) {
+    mPos = new PVector(mouseX, mouseY);
+    objs.remove(mDisp);
+    mDisp = new FixedObject(mPos, 0, defSize);
+    objs.add(mDisp);
+  }
+  if(mouseButton == RIGHT) {
+    objs.add(new FixedObject(new PVector(mouseX, mouseY), defFMass, defFSize));
+  }
 }
 
 void mouseReleased() {
-  PVector vel = PVector.sub(mPos, new PVector(mouseX, mouseY));
-  vel.div(velMult);
-  objs.remove(mDisp);
-  GravObject obj = new GravObject(mPos, defMass, defSize, vel);
-  obj.col = mDisp.col;
-  objs.add(obj);
+  if (mouseButton == LEFT) {
+    PVector vel = PVector.sub(mPos, new PVector(mouseX, mouseY));
+    vel.div(velMult);
+    objs.remove(mDisp);
+    GravObject obj = new GravObject(mPos, defMass, defSize, vel);
+    obj.col = mDisp.col;
+    objs.add(obj);
+  }
 }
 
 void draw() {
@@ -56,7 +69,7 @@ void draw() {
   }
 
   // draw the mouse velocity and trajectory of grav_object
-  if (mousePressed) {
+  if (mousePressed && mouseButton == LEFT) {
     // display mouse velocity
     PVector vel = PVector.sub(mPos, new PVector(mouseX, mouseY));
     vel.div(velMult);
@@ -119,19 +132,19 @@ void update() {
   }
 }
 
-void keyPressed(){
-  if(key == 'p'){
-    writeToFile("save2.txt");
+void keyPressed() {
+  if (key == 'p') {
+    writeToFile("saveFile.txt");
   }
-  
-  if(key == 'o'){
-    for(int i=objs.size()-1; i>=0; i--){
-      if(!objs.get(i).isFixed())
+
+  if (key == 'o') {
+    for (int i=objs.size()-1; i>=0; i--) {
+      if (!objs.get(i).isFixed())
         objs.remove(i);
     }
   }
-  
-  if(key == 'i'){
-    objs = readFromFile("save2.txt");
+
+  if (key == 'i') {
+    objs = readFromFile("saveFile.txt");
   }
 }
