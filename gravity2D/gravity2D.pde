@@ -13,7 +13,7 @@ float defMass=1, defSize=16, velMult=50; // Default parameters
 
 float defFMass = 5000, defFSize = 25;
 
-String saveFile = "chaos";
+String saveFile = "solar system";
 
 void setup() {
   size(1000, 1000); // Initializes window size, framerate, and colormode
@@ -23,18 +23,7 @@ void setup() {
   starBg = loadImage("starbg3.jpg"); // Loads in background
 
   objs = new ArrayList();
-
-  //float numRandObjs = 0;
-  //for (int i=0; i<numRandObjs; i++) {
-  //  PVector pos = new PVector(random(width), random(height));
-  //  float mass = random(10)+30;
-  //  float size = mass/2;
-  //  PVector vel = PVector.random2D();
-  //  objs.add(new GravObject(pos, mass, size, vel));
-  //}
-
   objs.add(new FixedObject(new PVector(width/2, height/2), 20000, 40));
-  //objs.add(new GravObject(new PVector(width/2, height/2-200), 10, 20, new PVector(5, 0)));
 }
 
 void mousePressed() {
