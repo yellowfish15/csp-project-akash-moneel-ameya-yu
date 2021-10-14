@@ -13,7 +13,7 @@ float defMass=1, defSize=16, velMult=50; // Default parameters
 
 float defFMass = 5000, defFSize = 25;
 
-String saveFile = "infinity";
+String saveFile = "chaos";
 
 void setup() {
   size(1000, 1000); // Initializes window size, framerate, and colormode
@@ -134,7 +134,7 @@ void update() {
 
 void keyPressed() {
   if (key == 'p') {
-    writeToFile("saveFile.txt");
+    writeToFile(saveFile+".dat");
   }
 
   if (key == 'o') {
@@ -145,6 +145,6 @@ void keyPressed() {
   }
 
   if (key == 'i') {
-    objs = readFromFile("saveFile.txt");
+    objs = readFromFile(saveFile+".dat");
   }
 }

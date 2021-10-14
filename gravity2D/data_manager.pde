@@ -1,5 +1,5 @@
 public void writeToFile(String fileName){
-  PrintWriter output = createWriter("data/"+fileName);
+  PrintWriter output = createWriter("data/saves/"+fileName);
   for(GravObject gObj : objs){
     output.println(gObj.toString());
   }
@@ -8,12 +8,16 @@ public void writeToFile(String fileName){
 }
 
 public ArrayList<GravObject> readFromFile(String fileName){
-  String[] lines = loadStrings("data/"+fileName);
+  try{
+  String[] lines = loadStrings("data/saves/"+fileName);
   ArrayList<GravObject> gList = new ArrayList();
   for(String l: lines){
     gList.add(fromString(l));
   }
   return gList;
+  } catch(Exception e){
+    return new ArrayList();
+  }
 }
 
 // "Grav "+pos.x+","+pos.y+","+pos.z+","+mass+","+size+","+vel.x+","+vel.y+","+vel.z+","+hue(col);
