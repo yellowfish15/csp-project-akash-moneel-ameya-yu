@@ -1,11 +1,8 @@
 class FixedObject extends GravObject {
-  public FixedObject(PVector pos, float mass, float size) {
-    super(pos, mass, size, new PVector());
+  public FixedObject(PVector pos, float mass, float size, PImage img) {
+    super(pos, mass, size, new PVector(),img);
   }
   
-  public FixedObject(PVector pos, float mass, float size, color col) {
-    super(pos, mass, size, new PVector(), col);
-  }
 
   public void applyForce() {
     return;
@@ -13,10 +10,6 @@ class FixedObject extends GravObject {
 
   public void update() {
     return;
-  }
-  
-  public FixedObject clone(){
-    return new FixedObject(pos.copy(),mass,size);
   }
   
   public String toString(){
