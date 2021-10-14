@@ -15,7 +15,7 @@ PImage neptune;
 PImage stars;
 
 ArrayList<GravObject> objs;
-float gravConstant = 40;
+float gravConstant = 0.5;
 void setup(){
   size(1000,1000,P3D);
   
