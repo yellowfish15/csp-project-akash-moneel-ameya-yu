@@ -15,7 +15,7 @@ PImage neptune;
 PImage stars;
 
 ArrayList<GravObject> objs;
-float gravConstant = 40;
+float gravConstant = 0.5;
 void setup(){
   size(1000,1000,P3D);
   
@@ -30,24 +30,22 @@ void setup(){
   sun = loadImage("sunmap.jpg");
   venus = loadImage("venusmap.jpg");
   saturn = loadImage("saturnmap.jpg");
-  mercury = loadImage("mercury.jpg");
+  mercury = loadImage("mercurymap.jpg");
   uranus = loadImage("uranusmap.jpg");
   mars = loadImage("marsmap.jpg");
   background(stars);
   frameRate(60);
   
   objs = new ArrayList();
-  objs.add(new GravObject(new PVector(100,100,100), 10, new PVector(2, 1, -3), mercury));
-  objs.add(new GravObject(new PVector(100,100,100), 27, new PVector(2, 1, -3), venus));
-  objs.add(new GravObject(new PVector(100,100,100),30, new PVector(2, 1, -3), earth));
-  objs.add(new GravObject(new PVector(100,100,100), 20, new PVector(2, 1, -3), mars));
-  objs.add(new GravObject(new PVector(100,100,100), 330, new PVector(2, 1, -3), jupiter));
-  objs.add(new GravObject(new PVector(100,100,100), 270, new PVector(2, 1, -3), saturn));
-  objs.add(new GravObject(new PVector(100,100,100), 120, new PVector(2, 1, -3), uranus));
-  objs.add(new GravObject(new PVector(100,100,100), 115, new PVector(2, 1, -3),neptune));
-  objs.add(new GravObject(new PVector(0,0,0),1000, new PVector(2, 1, -3), sun));
-
-
+  objs.add(new GravObject(new PVector(377.58392,474.42743,0.0),1.0,16.0, new PVector(5.0674562,-5.8845067,0.0), mercury));
+  objs.add(new GravObject(new PVector(612.4747,515.1686,0.0),1.0,16.0, new PVector(-5.841165,5.2759438,0.0), venus));
+  objs.add(new GravObject(new PVector(539.5281,721.4221,0.0),1.0,16.0, new PVector(-3.0426807,4.4249387,0.0), earth));
+  objs.add(new GravObject(new PVector(586.6104,640.1573,0.0), 1.0,16.0, new PVector(6.4177895,-2.2694788,0.0), mars));
+  objs.add(new GravObject(new PVector(242.3743,754.4275,0.0), 1.0,16.0, new PVector(-2.5125985,-1.9869404,0.0), jupiter));
+  objs.add(new GravObject(new PVector(456.50778,636.6375), 1.0,16.0, new PVector(-8.793516,0.80103785,0.0), saturn));
+  objs.add(new GravObject(new PVector(449.0483,761.3675,0.0), 1.0,16.0, new PVector(-4.8299937,-0.080984056,0.0), uranus));
+  objs.add(new GravObject(new PVector(283.71255,476.51636,0.0), 1.0,16.0, new PVector(-2.4048367,-5.5439234,0.0),neptune));
+  objs.add(new FixedObject(new PVector(500.0,500.0,0.0), 20000.0,40.0, sun));
 
 }
 

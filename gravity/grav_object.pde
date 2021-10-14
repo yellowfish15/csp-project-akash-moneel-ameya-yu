@@ -10,8 +10,6 @@ class GravObject{
     this.mass = mass;
     this.size = size;
     this.vel = vel;
-    colorMode(HSB);
-    col = color(random(255),255,255);
     noFill();
     noStroke();
     shape = createShape(SPHERE, size);
