@@ -15,6 +15,9 @@ float defFMass = 5000, defFSize = 25;
 
 String saveFile = "solar system";
 
+// increase or decrease mass
+boolean isLeftClicked = false;
+
 void setup() {
   size(1000, 1000); // Initializes window size, framerate, and colormode
   frameRate(60);
@@ -30,8 +33,9 @@ void mousePressed() {
   if (mouseButton == LEFT) {
     mPos = new PVector(mouseX, mouseY);
     objs.remove(mDisp);
-    mDisp = new FixedObject(mPos, 0, defSize);
+    mDisp = new FixedObject(mPos, 0, defMass+15);
     objs.add(mDisp);
+    isLeftClicked = true;
   }
   if(mouseButton == RIGHT) {
     objs.add(new FixedObject(new PVector(mouseX, mouseY), defFMass, defFSize));
@@ -43,9 +47,11 @@ void mouseReleased() {
     PVector vel = PVector.sub(mPos, new PVector(mouseX, mouseY));
     vel.div(velMult);
     objs.remove(mDisp);
-    GravObject obj = new GravObject(mPos, defMass, defSize, vel);
+    GravObject obj = new GravObject(mPos, defMass, defMass+15, vel);
     obj.col = mDisp.col;
     objs.add(obj);
+    isLeftClicked = false;
+    defMass = 1;
   }
 }
 
@@ -63,7 +69,7 @@ void draw() {
     PVector vel = PVector.sub(mPos, new PVector(mouseX, mouseY));
     vel.div(velMult);
     textSize(25);
-    text((floor(vel.mag()*100)+0.0)/100+"", mouseX, mouseY);
+    text((floor(vel.mag()*100)+0.0)/100+", " + defMass, mouseX, mouseY);
 
     // display trajectory of grav_object (100 frames into the future)
 
@@ -135,5 +141,15 @@ void keyPressed() {
 
   if (key == 'i') {
     objs = readFromFile(saveFile+".dat");
+  }
+  
+  if(isLeftClicked) {
+    if(keyCode == DOWN) {
+      if(defMass > 1) {
+        defMass -= 1;
+      }
+    } else if(keyCode == UP) {
+       defMass += 1;
+    }
   }
 }
