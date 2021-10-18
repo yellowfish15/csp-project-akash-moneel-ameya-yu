@@ -4,12 +4,14 @@ class GravObject{
   public color col;
   public PShape shape;
   
-  public GravObject(PVector pos, float mass, float size, PVector vel, PImage img){
-    this.pos = pos;
+  public GravObject(PVector pos, float mass, float size, PVector vel1, PImage img){
+    int scaleFactor = 1;
+    this.pos = pos.mult(scaleFactor);
     accel = new PVector();
     this.mass = mass;
     this.size = size;
-    this.vel = vel;
+    //PVector vel2 = new PVector(vel1.x*scalefactor, vel1.y*scalefactor, vel1.z*scalefactor);
+    this.vel = vel1;
     noFill();
     noStroke();
     shape = createShape(SPHERE, size);
