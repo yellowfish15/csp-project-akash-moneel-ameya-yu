@@ -1,10 +1,10 @@
 # Gravity Mechanics Demonstration
 
-Mrs. Castillo
+Mrs. Castillo, Period 1, CSP Project
 
-Period 1
+By: Akash Joseph, Moneel Patel, Ameya Purao, Yu Lim
 
-CSP Project
+Seven Lakes High School
 
 ## Sandbox Gravity Simulation - 
 ### Controls:
