@@ -1,3 +1,9 @@
+/*
+ * Created by: Akash Joseph, Moneel Patel, Ameya Purao, Yu Lim
+ * Mrs. Castillo, Period 1 Computer Science Principles Project
+ *
+ */
+
 class FixedObject extends GravObject {
   public FixedObject(PVector pos, float mass, float size) {
     super(pos, mass, size, new PVector());
