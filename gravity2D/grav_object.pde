@@ -1,3 +1,9 @@
+/*
+ * Created by: Akash Joseph, Moneel Patel, Ameya Purao, Yu Lim
+ * Mrs. Castillo, Period 1 Computer Science Principles Project
+ *
+ */
+
 class GravObject {
   public PVector pos, vel, accel;
   public float mass, size;
