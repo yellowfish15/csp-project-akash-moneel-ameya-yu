@@ -1,3 +1,9 @@
+/*
+ * Created by: Akash Joseph, Moneel Patel, Ameya Purao, Yu Lim
+ * Mrs. Castillo, Period 1 Computer Science Principles Project
+ *
+ */
+
 public void writeToFile(String fileName){
   PrintWriter output = createWriter("data/saves/"+fileName);
   for(GravObject gObj : objs){
