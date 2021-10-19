@@ -73,6 +73,7 @@ void mouseReleased() {
   if (gameState == 0) {
     if (sandbox.clickedOn()) {
       gameState = 1;
+      isSandbox = true;
       setup1();
     }
 

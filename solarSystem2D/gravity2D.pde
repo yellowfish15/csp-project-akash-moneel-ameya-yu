@@ -1,3 +1,11 @@
+/*
+ * Created by: Akash Joseph, Moneel Patel, Ameya Purao, Yu Lim
+ * Mrs. Castillo, Period 1 Computer Science Principles Project
+ *
+ * Simulate gravity on 2D objects and display to screen.
+ *
+ */
+
 import java.util.*;
 
 ArrayList<GravObject> objs; // Stores all planets including fixed planets
@@ -11,9 +19,14 @@ PVector mPos; // Temporary position for creating planet
 FixedObject mDisp; // Planet display
 float defMass=1, defSize=16, velMult=50; // Default parameters
 
-float defFMass = 5000, defFSize = 25;
+float defFMass = 5000, defFSize = 25; // central object attributes
 
-String saveFile = "rose";
+String saveFile = "solar system"; 
+
+// to determine whether increase/decrease mass is valid
+boolean isLeftClicked = false; 
+
+boolean isSandbox = false;
 
 void setup1() {
   size(1000, 1000); // Initializes window size, framerate, and colormode
@@ -30,8 +43,9 @@ void mousePressed1() {
   if (mouseButton == LEFT) {
     mPos = new PVector(mouseX, mouseY);
     objs.remove(mDisp);
-    mDisp = new FixedObject(mPos, 0, defSize);
+    mDisp = new FixedObject(mPos, 0, defSize+sqrt(defMass));
     objs.add(mDisp);
+    isLeftClicked = true;
   }
   if(mouseButton == RIGHT) {
     objs.add(new FixedObject(new PVector(mouseX, mouseY), defFMass, defFSize));
@@ -43,9 +57,11 @@ void mouseReleased1() {
     PVector vel = PVector.sub(mPos, new PVector(mouseX, mouseY));
     vel.div(velMult);
     objs.remove(mDisp);
-    GravObject obj = new GravObject(mPos, defMass, defSize, vel);
+    GravObject obj = new GravObject(mPos, defMass, defSize+sqrt(defMass), vel);
     obj.col = mDisp.col;
     objs.add(obj);
+    isLeftClicked = false;
+    defMass = 1;
   }
 }
 
@@ -59,11 +75,13 @@ void draw1() {
 
   // draw the mouse velocity and trajectory of grav_object
   if (mousePressed && mouseButton == LEFT) {
+    mDisp.size = defSize+sqrt(defMass);
+    
     // display mouse velocity
     PVector vel = PVector.sub(mPos, new PVector(mouseX, mouseY));
     vel.div(velMult);
     textSize(25);
-    text((floor(vel.mag()*100)+0.0)/100+"", mouseX, mouseY);
+    text((floor(vel.mag()*100)+0.0)/100+" m/s, " + defMass + " kg", mouseX, mouseY);
 
     // display trajectory of grav_object (100 frames into the future)
 
@@ -101,6 +119,7 @@ void draw1() {
 
 void update1() {
 
+  // simulate gravity influence on each GravObject
   for (int i=0; i<objs.size()-1; i++) {
     GravObject obj1 = objs.get(i);
     for (int k=i+1; k<objs.size(); k++) {
@@ -115,6 +134,7 @@ void update1() {
     }
   }
 
+  // update each GravObject attribute
   for (int i = objs.size()-1; i>=0; i--) {
     GravObject obj = objs.get(i);
     obj.update();
@@ -126,14 +146,23 @@ void keyPressed() {
   //  writeToFile(saveFile+".dat");
   //}
 
-  //if (key == 'o') {
-  //  for (int i=objs.size()-1; i>=0; i--) {
-  //    if (!objs.get(i).isFixed())
-  //      objs.remove(i);
-  //  }
-  //}
+  if (isSandbox && key == 'o') {
+    objs = new ArrayList();
+    objs.add(new FixedObject(new PVector(width/2, height/2), 20000, 40));
+  }
 
   //if (key == 'i') {
   //  objs = readFromFile(saveFile+".dat");
   //}
+  
+  // if user is currently about to add a new GravObject
+  if(isLeftClicked) {
+    if(keyCode == DOWN) { // decrease GravObj mass
+      if(defMass > 1) {
+        defMass -= 1;
+      }
+    } else if(keyCode == UP) { // decrease GravObj mass
+       defMass += 1;
+    }
+  }
 }
