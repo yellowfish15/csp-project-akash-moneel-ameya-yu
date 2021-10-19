@@ -1,57 +1,72 @@
-//class GravObject {
-//  public PVector pos, vel, accel;
-//  public float mass, size;
-//  public color col;
-//  public PShape shape;
+class GravObject {
+  public PVector pos, vel, accel;
+  public float mass, size;
+  public color col;
+  public PShape shape;
 
-//  public GravObject(PVector pos, float mass, float size, PVector vel) {
-//    this.pos = pos;
-//    accel = new PVector();
-//    this.mass = mass;
-//    this.size = size;
-//    this.vel = vel;
-//    colorMode(HSB);
-//    col = color(random(255), 255, 255);
-//  }
+  public GravObject(PVector pos, float mass, float size, PVector vel) {
+    this(pos,mass,size,vel,color(random(255), 255, 255));
+  }
 
-//  public void applyForce(PVector force) {
-//    accel.add(force);
-//  }
+  public GravObject(PVector pos, float mass, float size, PVector vel, color col){
+    this.pos = pos;
+    accel = new PVector();
+    this.mass = mass;
+    this.size = size;
+    this.vel = vel;
+    this.col = col;
+  }
 
-//  public void update() {
-//    vel.add(accel);
-//    pos.add(vel);
-//    accel = new PVector();
+  public void applyForce(PVector force) {
+    accel.add(force);
+  }
 
-//    if (screenWrap) {
-//      if (pos.x>width)
-//        pos.x = 0;
-//      else if (pos.x<0)
-//        pos.x = width;
-//      if (pos.y>height)
-//        pos.y = 0;
-//      else if (pos.y<0)
-//        pos.y = height;
-//    } else {
-//      if(pos.x<-worldMargin)
-//        objs.remove(this);
-//      else if(pos.x>worldMargin+width)
-//        objs.remove(this);
-//      else if(pos.y<-worldMargin)
-//        objs.remove(this);
-//      else if(pos.y>worldMargin+height)
-//        objs.remove(this);
-//    }
-//  }
+  public void update() {
+    vel.add(accel);
+    pos.add(vel);
+    accel = new PVector();
 
-//  public void draw() {
-//    pushMatrix();
+    if (screenWrap) {
+      if (pos.x>width)
+        pos.x = 0;
+      else if (pos.x<0)
+        pos.x = width;
+      if (pos.y>height)
+        pos.y = 0;
+      else if (pos.y<0)
+        pos.y = height;
+    } else {
+      if(pos.x<-worldMargin)
+        objs.remove(this);
+      else if(pos.x>worldMargin+width)
+        objs.remove(this);
+      else if(pos.y<-worldMargin)
+        objs.remove(this);
+      else if(pos.y>worldMargin+height)
+        objs.remove(this);
+    }
+  }
 
-//    translate(pos.x, pos.y);
-//    noStroke();
-//    fill(col);
-//    circle(0, 0, size);
+  public void draw() {
+    pushMatrix();
 
-//    popMatrix();
-//  }
-//}
+    translate(pos.x, pos.y);
+    noStroke();
+    fill(col);
+    circle(0, 0, size);
+
+    popMatrix();
+  }
+  
+  public GravObject clone(){
+    return new GravObject(pos.copy(),mass,size,vel.copy(),col);
+  }
+  
+  public String toString(){
+    return "Grav "+pos.x+","+pos.y+","+pos.z+","+mass+","+size+","+vel.x+","+vel.y+","+vel.z+","+hue(col);
+  }
+  
+  public boolean isFixed(){
+    return false;
+  }
+}

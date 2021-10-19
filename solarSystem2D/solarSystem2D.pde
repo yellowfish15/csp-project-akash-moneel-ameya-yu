@@ -1,104 +1,21 @@
-/*ArrayList<GravObject> objs;
- float gravConstant = 40;
- PVector mPos;
- FixedObject mDisp;
- float defMass=1, defSize=16, velMult=50;
- PImage starBg;
- 
- boolean screenWrap = false;
- float worldMargin = 100;
- 
- boolean mPressed = false;
- 
- void setup() {
- size(1000, 1000);
- frameRate(60);
- 
- starBg = loadImage("starbg3.jpg");
- 
- objs = new ArrayList();
- 
- float numRandObjs = 0;
- for (int i=0; i<numRandObjs; i++) {
- PVector pos = new PVector(random(width), random(height));
- float mass = random(10)+30;
- float size = mass/2;
- PVector vel = PVector.random2D();
- objs.add(new GravObject(pos, mass, size, vel));
- }
- 
- objs.add(new FixedObject(new PVector(width/2, height/2), 150, 40));
- 
- objs.add(new GravObject(new PVector(width/2, height/2-200), 10, 20, new PVector(5, 0)));
- }
- 
- void mousePressed() {
- mPos = new PVector(mouseX, mouseY);
- mDisp = new FixedObject(mPos, 0, defSize);
- objs.add(mDisp);
- mPressed = true;
- }
- 
- void mouseReleased() {
- PVector vel = PVector.sub(mPos, new PVector(mouseX, mouseY));
- vel.div(velMult);
- objs.remove(mDisp);
- objs.add(new GravObject(mPos, defMass, defSize, vel));
- mPressed = false;
- }
- 
- void draw() {
- update();
- 
- background(starBg);
- for (GravObject obj : objs) {
- obj.draw();
- }
- 
- // draw the mouse velocity
- if(mPressed) {
- PVector vel = PVector.sub(mPos, new PVector(mouseX, mouseY));
- vel.div(velMult);
- textSize(25);
- text((floor(vel.mag()*100)+0.0)/100+"", mouseX, mouseY); 
- }
- }
- 
- void update() {
- 
- for (int i=0; i<objs.size()-1; i++) {
- GravObject obj1 = objs.get(i);
- for (int k=i+1; k<objs.size(); k++) {
- GravObject obj2 = objs.get(k);
- PVector base = PVector.sub(obj1.pos, obj2.pos);
- float dist = base.magSq();
- dist = max(dist, 400); // prevents infinite acceleration
- dist = gravConstant/dist;
- base = base.normalize().mult(dist);
- obj2.applyForce(PVector.mult(base, obj1.mass));
- obj1.applyForce(PVector.mult(base, -obj2.mass));
- }
- }
- 
- for (int i = objs.size()-1; i>=0; i--) {
- GravObject obj = objs.get(i);
- obj.update();
- }
- }
- */
-
-
 int currentPic = 0;
 PImage[] gif;
 Button sandbox = new Button(300, 480, 400, 100, "Sandbox");
-Button solarSystem = new Button(300, 680, 400, 100, "Solar System");
+Button preloads = new Button(300, 680, 400, 100, "Preloads");
+
+//Preloads
+Button solarSystem = new Button(300, 200, 400, 100, "Solar System");
+Button infinity = new Button(300, 400, 400, 100, "Infinity");
+Button chaos = new Button(300, 600, 400, 100, "Chaos");
+Button rose = new Button(300, 800, 400, 100, "Rose");
+
 PFont font;
 int gameState = 0;
 // setup() and other global variables
 
 void setup() {
   size(1000, 1000);
-  textAlign(CENTER);
+  textAlign(CENTER, CENTER);
   font = createFont("Death Star.otf", 75);
   textFont(font);
   gif = new PImage[12];
@@ -107,7 +24,7 @@ void setup() {
     gif[index] = loadImage("frame_0" + index + "_delay-0.11s.gif");
     index++;
   }
-  frameRate(5);
+  frameRate(60);
 }
 
 void draw() {
@@ -116,7 +33,7 @@ void draw() {
   } else if (gameState == 1) {
     sandbox();
   } else if (gameState == 2) {
-    solarSystem();
+    preloads();
   }
 }
 
@@ -132,28 +49,51 @@ void mainMenu() {
   background();
   fill(255);
   textFont(font);
+  textAlign(CENTER, CENTER);
   text("2D SPACE VISUALIZER", 500, 200);
   sandbox.draw();
-  solarSystem.draw();
+  preloads.draw();
 }
 
 void sandbox() {
-  background();
+  draw1();
 }
 
-void solarSystem() {
-  background();
+//solar system, infinity, chaos, rose
+void preloads() {
+  if(solarSystem.clickedOn()) {
+    
+  }
+  if(infinity.clickedOn()) {
+    
+  }
+  if(chaos.clickedOn()) {
+    
+  }
+  if(rose.clickedOn()) {
+    
+  }
 }
 
 void mouseReleased() {
   if (gameState == 0) {
     if (sandbox.clickedOn()) {
       gameState = 1;
+      setup1();
     }
 
-    if (solarSystem.clickedOn()) {
+    if (preloads.clickedOn()) {
       gameState = 2;
     }
+  }
+  else if(gameState == 1) {
+    mouseReleased1();
+  }
+}
+
+void mousePressed() {
+  if(gameState == 1) {
+    mousePressed1();
   }
 }
 
