@@ -13,7 +13,7 @@ float defMass=1, defSize=16, velMult=50; // Default parameters
 
 float defFMass = 5000, defFSize = 25;
 
-String saveFile = "solar system";
+String saveFile = "rose";
 
 void setup1() {
   size(1000, 1000); // Initializes window size, framerate, and colormode
@@ -122,18 +122,18 @@ void update1() {
 }
 
 void keyPressed() {
-  if (key == 'p') {
-    writeToFile(saveFile+".dat");
-  }
+  //if (key == 'p') {
+  //  writeToFile(saveFile+".dat");
+  //}
 
-  if (key == 'o') {
-    for (int i=objs.size()-1; i>=0; i--) {
-      if (!objs.get(i).isFixed())
-        objs.remove(i);
-    }
-  }
+  //if (key == 'o') {
+  //  for (int i=objs.size()-1; i>=0; i--) {
+  //    if (!objs.get(i).isFixed())
+  //      objs.remove(i);
+  //  }
+  //}
 
-  if (key == 'i') {
-    objs = readFromFile(saveFile+".dat");
-  }
+  //if (key == 'i') {
+  //  objs = readFromFile(saveFile+".dat");
+  //}
 }

@@ -4,10 +4,10 @@ Button sandbox = new Button(300, 480, 400, 100, "Sandbox");
 Button preloads = new Button(300, 680, 400, 100, "Preloads");
 
 //Preloads
-Button solarSystem = new Button(300, 200, 400, 100, "Solar System");
-Button infinity = new Button(300, 400, 400, 100, "Infinity");
-Button chaos = new Button(300, 600, 400, 100, "Chaos");
-Button rose = new Button(300, 800, 400, 100, "Rose");
+Button solarSystem = new Button(300, 150, 400, 100, "Solar System");
+Button infinity = new Button(300, 350, 400, 100, "Infinity");
+Button chaos = new Button(300, 550, 400, 100, "Chaos");
+Button rose = new Button(300, 750, 400, 100, "Rose");
 
 PFont font;
 int gameState = 0;
@@ -61,18 +61,12 @@ void sandbox() {
 
 //solar system, infinity, chaos, rose
 void preloads() {
-  if(solarSystem.clickedOn()) {
-    
-  }
-  if(infinity.clickedOn()) {
-    
-  }
-  if(chaos.clickedOn()) {
-    
-  }
-  if(rose.clickedOn()) {
-    
-  }
+  background();
+
+  solarSystem.draw();
+  infinity.draw(); 
+  chaos.draw(); 
+  rose.draw();
 }
 
 void mouseReleased() {
@@ -85,14 +79,34 @@ void mouseReleased() {
     if (preloads.clickedOn()) {
       gameState = 2;
     }
-  }
-  else if(gameState == 1) {
+  } else if (gameState == 1) {
     mouseReleased1();
+  } else if (gameState == 2) {
+    if (solarSystem.clickedOn()) {
+      setup1();
+      objs=readFromFile("solar system.dat");
+      gameState = 1;
+    }
+    if (infinity.clickedOn()) {
+      setup1();
+      objs=readFromFile("infinity.dat");
+      gameState = 1;
+    }
+    if (chaos.clickedOn()) {
+      setup1();
+      objs=readFromFile("chaos.dat");
+      gameState = 1;
+    }
+    if (rose.clickedOn()) {
+      setup1();
+      objs=readFromFile("rose.dat");
+      gameState = 1;
+    }
   }
 }
 
 void mousePressed() {
-  if(gameState == 1) {
+  if (gameState == 1) {
     mousePressed1();
   }
 }
