@@ -1,4 +1,9 @@
+/*
+Names: Akash Joseph, Moneel Patel, Ameya Purao, Yu Lim
+Date: 10/18/2021
+*/
 class FixedObject extends GravObject {
+  //initializes the Sun, since in this simulation it doesn't move, we create a seperate class that initializes a gravobject with a null velocity
   public FixedObject(PVector pos, float mass, float size, PImage img) {
     super(pos, mass, size, new PVector(),img);
   }

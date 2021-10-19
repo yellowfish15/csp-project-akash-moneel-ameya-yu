@@ -1,4 +1,7 @@
-import java.util.*;
+import java.util.*;/*
+Names: Akash Joseph, Moneel Patel, Ameya Purao, Yu Lim
+Date: 10/18/2021
+*/
 public void writeToFile(String fileName){
   PrintWriter output = createWriter("data/saves/"+fileName);
   for(GravObject gObj : objs){

@@ -15,6 +15,7 @@ PImage saturn;
 PImage uranus;
 PImage neptune;
 PImage stars;
+PImage maskImage;
 HashMap<String, PImage> planets; 
 ArrayList<GravObject> objs;
 float gravConstant = 0.5; //describes the strength of attraction between two objects with mass
@@ -52,10 +53,13 @@ void setup() {
 
 void draw() {
   update(); //redrawing the objects after every frame
-
-  background(stars);
+ background(stars);
   lights();
   noCursor();
+ //circle(500,500, 500);
+  //stroke(153);
+  //maskImage = loadImage("starbg2.jpg");
+
   for (GravObject obj : objs) {
     obj.draw();
   }
