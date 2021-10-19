@@ -1,8 +1,8 @@
 import queasycam.*;
 /*
 Names: Akash Joseph, Moneel Patel, Ameya Purao, Yu Lim
-Date: 10/18/2021
-*/
+ Date: 10/18/2021
+ */
 QueasyCam cam;
 
 PImage jupiter; //initializing all Image objects representing individual planets
@@ -25,7 +25,9 @@ void setup() {
   perspective(PI/3, width/height, 0.01, 10000); 
   cam.speed = 3;
   cam.sensitivity = 0.5;
-  cam.position = new PVector(400, 400, 0);
+  cam.position = new PVector( 951.6253, 934.9908, 815.6682 );
+  cam.tilt = -0.43668178;
+  cam.pan = -2.0451784;
   jupiter = loadImage("jupitermap.jpg"); //loading in the images from jpgs stored in 'data' folder to PImage
   earth = loadImage("earthmap1k.jpg");
   stars = loadImage("starbg2.jpg");
@@ -53,13 +55,12 @@ void setup() {
 
 void draw() {
   update(); //redrawing the objects after every frame
- background(stars);
+  background(stars);
   lights();
   noCursor();
- //circle(500,500, 500);
+  //circle(500,500, 500);
   //stroke(153);
   //maskImage = loadImage("starbg2.jpg");
-
   for (GravObject obj : objs) {
     obj.draw();
   }
@@ -82,4 +83,12 @@ void update() {
   for (GravObject obj : objs) {
     obj.update();
   }
+}
+
+void keyPressed(){
+  //if(key=='y'){
+  //  println(cam.position);
+  //  println(cam.tilt);
+  //  println(cam.pan);
+  //}
 }
