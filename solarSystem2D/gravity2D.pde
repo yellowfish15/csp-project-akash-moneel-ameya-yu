@@ -165,4 +165,8 @@ void keyPressed() {
        defMass += 1;
     }
   }
+  
+  if(key == 'm'){
+    gameState = 0;
+  }
 }
