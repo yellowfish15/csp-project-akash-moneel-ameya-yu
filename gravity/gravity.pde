@@ -37,6 +37,7 @@ void setup() {
   mercury = loadImage("mercurymap.jpg");
   uranus = loadImage("uranusmap.jpg");
   mars = loadImage("marsmap.jpg");
+  neptune = loadImage("neptunemap.jpg");
   planets = new HashMap();
   planets.put("jupiter", jupiter); //adding each image to a HashMap for better organization
   planets.put("earth", earth);
@@ -46,6 +47,7 @@ void setup() {
   planets.put("mercury", mercury );
   planets.put("uranus", uranus);
   planets.put("mars", mars);
+  planets.put("neptune", neptune);
   background(stars);
   frameRate(60);
 
