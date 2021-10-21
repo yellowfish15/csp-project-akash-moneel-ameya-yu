@@ -4,10 +4,12 @@ Button sandbox = new Button(300, 480, 400, 100, "Sandbox");
 Button preloads = new Button(300, 680, 400, 100, "Preloads");
 
 //Preloads
-Button solarSystem = new Button(300, 150, 400, 100, "Solar System");
-Button infinity = new Button(300, 350, 400, 100, "Infinity");
-Button chaos = new Button(300, 550, 400, 100, "Chaos");
-Button rose = new Button(300, 750, 400, 100, "Rose");
+Button solarSystem = new Button(300, 50, 400, 100, "Solar System");
+Button infinity = new Button(300, 200, 400, 100, "Infinity");
+Button chaos = new Button(300, 350, 400, 100, "Chaos");
+Button rose = new Button(300, 500, 400, 100, "Rose");
+Button venn = new Button(300, 650, 400, 100, "Venn Orbit");
+Button launcher = new Button(300, 800, 400, 100, "Launcher");
 
 PFont font;
 int gameState = 0;
@@ -67,6 +69,8 @@ void preloads() {
   infinity.draw(); 
   chaos.draw(); 
   rose.draw();
+  venn.draw();
+  launcher.draw();
 }
 
 void mouseReleased() {
@@ -101,6 +105,16 @@ void mouseReleased() {
     if (rose.clickedOn()) {
       setup1();
       objs=readFromFile("rose.dat");
+      gameState = 1;
+    }
+    if(venn.clickedOn()) {
+      setup1();
+      objs=readFromFile("venn.dat");
+      gameState = 1;
+    }
+    if(launcher.clickedOn()) {
+      setup1();
+      objs=readFromFile("launcher.dat");
       gameState = 1;
     }
   }
