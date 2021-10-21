@@ -39,6 +39,7 @@ void setup1() {
   objs.add(new FixedObject(new PVector(width/2, height/2), 20000, 40));
 }
 
+// When mouse is pressed, it starts drawing a new planet and enables path prediction
 void mousePressed1() {
   if (mouseButton == LEFT) {
     mPos = new PVector(mouseX, mouseY);
@@ -52,6 +53,7 @@ void mousePressed1() {
   }
 }
 
+// When mouse is released, it creates the new planet and adds it to the list of planets
 void mouseReleased1() {
   if (mouseButton == LEFT) {
     PVector vel = PVector.sub(mPos, new PVector(mouseX, mouseY));
@@ -65,6 +67,7 @@ void mouseReleased1() {
   }
 }
 
+// Display method (called from solarSystem2D
 void draw1() {
   update1();
 
@@ -83,7 +86,7 @@ void draw1() {
     textSize(25);
     text((floor(vel.mag()*100)+0.0)/100+" m/s, " + defMass + " kg", mouseX, mouseY);
 
-    // display trajectory of grav_object (100 frames into the future)
+    // display trajectory of grav_object (1090 frames into the future)
 
     GravObject trace = new GravObject(mPos.copy(), defMass, 3, vel, mDisp.col);
     ArrayList<GravObject> predList = new ArrayList();
@@ -166,6 +169,7 @@ void keyPressed() {
     }
   }
   
+  // Press m to go to main menu
   if(key == 'm'){
     gameState = 0;
   }
